@@ -58,6 +58,11 @@ PRODUCT_BUILD_VENDOR_IMAGE := false
 PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := relaxed
 PRODUCT_RESTRICT_VENDOR_FILES := all
 
+# Preserve CPU time-in-state accounting on the pre-BTF 4.19 kernel. The
+# loader selects this object only on kernels older than 5.10.
+PRODUCT_PACKAGES += \
+    timeInStateLegacy.bpf
+
 PRODUCT_SYSTEM_PROPERTIES += \
     ro.bpf.platform_kver_override=5.10.0 \
     ro.custom.security_patch=$(PLATFORM_SECURITY_PATCH) \
