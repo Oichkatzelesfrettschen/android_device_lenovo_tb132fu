@@ -1,0 +1,7 @@
+aconfig_values {
+    name: "aconfig-values-device_lenovo_tb132fu-cp2a-android.bpfprogs.flags-all",
+    package: "android.bpfprogs.flags",
+    srcs: [
+        "*_flag_values.textproto",
+    ],
+}
