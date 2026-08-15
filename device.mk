@@ -59,6 +59,7 @@ PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := relaxed
 PRODUCT_RESTRICT_VENDOR_FILES := all
 
 PRODUCT_SYSTEM_PROPERTIES += \
+    ro.bpf.platform_kver_override=5.10.0 \
     ro.custom.security_patch=$(PLATFORM_SECURITY_PATCH) \
     ro.surface_flinger.set_touch_timer_ms=1000 \
     ro.vendor.mtk_aod_support=1
