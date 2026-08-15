@@ -52,9 +52,10 @@ BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE := 268435456
 BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 268435456
 BOARD_SYSTEM_EXTIMAGE_PARTITION_RESERVED_SIZE := 134217728
 
-# The retained Android 12 vendor supplies its own policy and HAL manifest.
+# The retained Android 12 vendor supplies its own version-31 CIL policy and HAL
+# manifest. Android 17 supplies the versioned platform mapping; no vendor policy
+# is compiled or installed from this device tree.
 PRODUCT_FULL_TREBLE := true
-TARGET_USES_PREBUILT_VENDOR_SEPOLICY := true
 
 # Acknowledge the exact optional HAL instances provided by Lenovo's retained
 # Android 12 vendor partition. Platform FCM5 requirements remain enabled and
