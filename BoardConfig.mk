@@ -56,6 +56,12 @@ BOARD_SYSTEM_EXTIMAGE_PARTITION_RESERVED_SIZE := 134217728
 PRODUCT_FULL_TREBLE := true
 TARGET_USES_PREBUILT_VENDOR_SEPOLICY := true
 
+# Acknowledge the exact optional HAL instances provided by Lenovo's retained
+# Android 12 vendor partition. Platform FCM5 requirements remain enabled and
+# are validated separately against the real 4.19 kernel configuration.
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
+    $(DEVICE_PATH)/framework_compatibility_matrix.xml
+
 # Use normal AVB footers for the three framework-owned logical partitions.
 # Flashing vbmeta/super is intentionally outside the initial bring-up path.
 BOARD_AVB_ENABLE := true
