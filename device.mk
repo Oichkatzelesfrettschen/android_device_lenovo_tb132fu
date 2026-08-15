@@ -1,0 +1,62 @@
+# Copyright (C) 2026
+# SPDX-License-Identifier: Apache-2.0
+
+LOCAL_PATH := device/lenovo/tb132fu
+
+# Compose a normal multi-partition AOSP tablet product. This deliberately does
+# not inherit gsi_release.mk, PHH/TrebleDroid, a universal overlay catalog, or a
+# foreign-device product. Architecture definitions from core_64_bit are shared
+# platform build rules, not GSI device behavior.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_system.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_system_ext.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_product.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/large_screen_common.mk)
+$(call inherit-product-if-exists, frameworks/base/data/sounds/AllAudio.mk)
+
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+PRODUCT_USE_DYNAMIC_PARTITION_SIZE := true
+
+# Keep the stock device's 4 KiB ABI. The frozen vendor/ODM stack is not 16 KiB
+# compatible.
+PRODUCT_MAX_PAGE_SIZE_SUPPORTED := 4096
+PRODUCT_NO_BIONIC_PAGE_SIZE_MACRO := true
+
+# The tablet launched with product API 31 on a board-first API 30 vendor. Keep
+# the framework compatibility payloads for that frozen vendor ABI.
+PRODUCT_SHIPPING_API_LEVEL := 31
+PRODUCT_EXTRA_VNDK_VERSIONS := 31
+
+# Emit only framework-owned logical partitions during bring-up. Boot is built
+# by the kernel pipeline; vendor/ODM and all firmware remain byte-preserved.
+PRODUCT_BUILD_BOOT_IMAGE := false
+PRODUCT_BUILD_CACHE_IMAGE := false
+PRODUCT_BUILD_DEBUG_BOOT_IMAGE := false
+PRODUCT_BUILD_DEBUG_VENDOR_BOOT_IMAGE := false
+PRODUCT_BUILD_ODM_IMAGE := false
+PRODUCT_BUILD_ODM_DLKM_IMAGE := false
+PRODUCT_BUILD_PRODUCT_IMAGE := true
+PRODUCT_BUILD_RAMDISK_IMAGE := false
+PRODUCT_BUILD_SUPER_EMPTY_IMAGE := false
+PRODUCT_BUILD_SUPER_PARTITION := false
+PRODUCT_BUILD_SYSTEM_DLKM_IMAGE := false
+PRODUCT_BUILD_SYSTEM_EXT_IMAGE := true
+PRODUCT_BUILD_SYSTEM_IMAGE := true
+PRODUCT_BUILD_USERDATA_IMAGE := false
+PRODUCT_BUILD_VENDOR_BOOT_IMAGE := false
+PRODUCT_BUILD_VENDOR_DLKM_IMAGE := false
+PRODUCT_BUILD_VENDOR_IMAGE := false
+
+PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := relaxed
+PRODUCT_RESTRICT_VENDOR_FILES := all
+
+PRODUCT_SYSTEM_PROPERTIES += \
+    ro.custom.security_patch=$(PLATFORM_SECURITY_PATCH) \
+    ro.surface_flinger.set_touch_timer_ms=1000
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/tb132fu-no-telephony.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/tb132fu-no-telephony.xml
+
+TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop

@@ -1,0 +1,27 @@
+# TB132FU framework-side defaults. Vendor and ODM remain authoritative for
+# MediaTek hardware properties.
+
+ro.sys.sdcardfs=0
+persist.sys.strictmode.disable=true
+
+fw.max_users=10
+persist.sys.max_profiles=10
+
+# Retain the proven system-side Bluetooth audio path and tablet profiles used
+# by the pen and pogo keyboard/trackpad.
+persist.bluetooth.system_audio_hal.enabled=true
+bluetooth.profile.asha.central.enabled?=true
+bluetooth.profile.a2dp.source.enabled?=true
+bluetooth.profile.avrcp.target.enabled?=true
+bluetooth.profile.bas.client.enabled?=true
+bluetooth.profile.gatt.enabled?=true
+bluetooth.profile.hid.device.enabled?=true
+bluetooth.profile.hid.host.enabled?=true
+bluetooth.profile.map.server.enabled?=true
+bluetooth.profile.opp.enabled?=true
+bluetooth.profile.pan.nap.enabled?=true
+bluetooth.profile.pan.panu.enabled?=true
+bluetooth.profile.pbap.server.enabled?=true
+
+# Stock MediaTek USB expects functionfs MTP.
+vendor.usb.use_ffs_mtp=1
