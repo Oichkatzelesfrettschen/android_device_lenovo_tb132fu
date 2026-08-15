@@ -24,6 +24,12 @@ PRODUCT_USE_DYNAMIC_PARTITION_SIZE := true
 PRODUCT_MAX_PAGE_SIZE_SUPPORTED := 4096
 PRODUCT_NO_BIONIC_PAGE_SIZE_MACRO := true
 
+# The accepted v85/v86 4.19 configs have CONFIG_USERFAULTFD disabled and do
+# not provide the MREMAP_DONTUNMAP contract required by ART's UFFD collector.
+# Keep the normal concurrent-moving collector instead of relying on the build
+# system's unknown-kernel default.
+PRODUCT_ENABLE_UFFD_GC := false
+
 # The tablet launched with product API 31 on a board-first API 30 vendor. Keep
 # the framework compatibility payloads for that frozen vendor ABI.
 PRODUCT_SHIPPING_API_LEVEL := 31
@@ -54,7 +60,8 @@ PRODUCT_RESTRICT_VENDOR_FILES := all
 
 PRODUCT_SYSTEM_PROPERTIES += \
     ro.custom.security_patch=$(PLATFORM_SECURITY_PATCH) \
-    ro.surface_flinger.set_touch_timer_ms=1000
+    ro.surface_flinger.set_touch_timer_ms=1000 \
+    ro.vendor.mtk_aod_support=1
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/tb132fu-no-telephony.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/tb132fu-no-telephony.xml
