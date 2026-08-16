@@ -9,3 +9,11 @@ on property:persist.sys.tb132fu.dt2w=1
 
 on property:persist.sys.tb132fu.dt2w=0
     write /proc/gesture_control 0
+
+# The retained Goodix driver keeps active-pen scanning disabled until userspace
+# opts in through this device node. The old TrebleDroid compatibility script
+# performed this write globally; native TB132FU owns it explicitly. Waiting for
+# boot completion guarantees the asynchronous Goodix stage-2 probe has created
+# the node, and the driver then restores pen mode after every doze resume.
+on property:sys.boot_completed=1
+    write /sys/devices/platform/goodix_ts.0/support_pen 1

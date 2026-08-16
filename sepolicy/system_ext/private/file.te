@@ -1,1 +1,2 @@
 type proc_gesture_control, fs_type, proc_type;
+type sysfs_goodix_pen, fs_type, sysfs_type;

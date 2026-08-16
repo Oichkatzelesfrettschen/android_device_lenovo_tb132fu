@@ -1,1 +1,2 @@
 genfscon proc /gesture_control u:object_r:proc_gesture_control:s0
+genfscon sysfs /devices/platform/goodix_ts.0/support_pen u:object_r:sysfs_goodix_pen:s0
