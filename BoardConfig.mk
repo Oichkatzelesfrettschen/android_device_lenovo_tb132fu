@@ -58,15 +58,18 @@ BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 
-# Leave room for filesystem metadata and incremental source growth while the
-# images are dynamically sized inside the stock main_a group.
-BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE := 268435456
+# Pin product and system_ext to the exact currently booted logical extents.
+# SHA-256 hashtrees otherwise make their dynamically sized images 40 KiB and
+# 24 KiB larger, respectively, which would make fastbootd mutate super
+# metadata during a routine framework update. The image builders allocate the
+# unused capacity inside these fixed ceilings as filesystem free space.
+BOARD_PRODUCTIMAGE_PARTITION_SIZE := 582131712
 # Pin system to the allocation proven from the tablet's current super metadata.
 # This makes an oversized image fail at build time instead of relying on
 # fastbootd to resize a logical partition implicitly.  The temporary static
 # apexd probe still leaves roughly 255 MiB free in the fixed-size filesystem.
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1317494784
-BOARD_SYSTEM_EXTIMAGE_PARTITION_RESERVED_SIZE := 134217728
+BOARD_SYSTEM_EXTIMAGE_PARTITION_SIZE := 360206336
 
 # The retained Android 12 vendor supplies its own version-31 CIL policy and HAL
 # manifest. Android 17 supplies the versioned platform mapping; no vendor policy
