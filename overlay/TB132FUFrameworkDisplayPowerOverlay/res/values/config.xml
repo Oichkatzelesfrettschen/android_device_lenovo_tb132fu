@@ -10,9 +10,14 @@
     <integer name="config_screenBrightnessDoze">1</integer>
     <bool name="config_displayBrightnessBucketsInDoze">false</bool>
 
-    <!-- The panel exposes physical 60 and 120 Hz modes. Android may idle at
-         60 Hz and touch-boost to 120 Hz within this range. -->
-    <integer name="config_defaultRefreshRate">60</integer>
+    <!-- The panel exposes physical 60 and 120 Hz modes. Keep the default
+         render vote wide enough to admit 120 Hz; Android 17 intersects this
+         vote with the user's peak setting before SurfaceFlinger can apply its
+         touch/content policy. A 60 Hz default here silently capped Fluid mode
+         at 60 Hz even though peak_refresh_rate was 120. Content detection may
+         still select 60 Hz while idle, Standard clamps the peak to 60 Hz, and
+         Force 120 raises the minimum to 120 Hz. -->
+    <integer name="config_defaultRefreshRate">120</integer>
     <integer name="config_defaultPeakRefreshRate">120</integer>
 
     <!-- Android 17 desktop-first mode switches the internal display to desktop

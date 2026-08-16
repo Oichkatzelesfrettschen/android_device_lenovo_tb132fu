@@ -61,6 +61,7 @@ PRODUCT_RESTRICT_VENDOR_FILES := all
 # Preserve CPU time-in-state accounting on the pre-BTF 4.19 kernel. The
 # loader selects this object only on kernels older than 5.10.
 PRODUCT_PACKAGES += \
+    LenovoPenService \
     timeInStateLegacy.bpf \
     TB132FUFrameworkDisplayPowerOverlay \
     TB132FUSettingsProviderDefaultsOverlay \
@@ -75,6 +76,11 @@ PRODUCT_SYSTEM_PROPERTIES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.tb132fu.rc:$(TARGET_COPY_OUT_SYSTEM)/etc/init/init.tb132fu.rc \
+    $(LOCAL_PATH)/permissions/privapp-permissions-lenovo-penservice.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-lenovo-penservice.xml \
+    $(LOCAL_PATH)/etc/appcompat/compat_framework_overrides.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/appcompat/compat_framework_overrides.xml \
+    $(LOCAL_PATH)/etc/pen/pen_config.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/pen/pen_config.xml \
+    $(LOCAL_PATH)/media/audio/ui/pen_mono.wav:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/pen_mono.wav \
+    $(LOCAL_PATH)/media/audio/ui/pen_sound.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/pen_sound.ogg \
     $(LOCAL_PATH)/tb132fu-no-telephony.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/tb132fu-no-telephony.xml \
     frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.freeform_window_management.xml
 

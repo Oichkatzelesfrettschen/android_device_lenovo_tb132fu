@@ -1,0 +1,13 @@
+// Copyright (C) 2026
+// SPDX-License-Identifier: Apache-2.0
+
+android_app_import {
+    name: "LenovoPenService",
+    apk: "prebuilt/PenService.apk",
+    certificate: "platform",
+    privileged: true,
+    product_specific: true,
+    dex_preopt: {
+        enabled: false,
+    },
+}

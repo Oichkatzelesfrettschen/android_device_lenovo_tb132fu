@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- PenService targets API 33 and requires the legacy dynamic-receiver rule. -->
+<overrides>
+    <change-overrides changeId="161145287">
+        <validated>
+            <override-value packageName="com.lenovo.penservice" enabled="false" />
+        </validated>
+        <deferred />
+        <raw>
+            <raw-override-value
+                packageName="com.lenovo.penservice"
+                minVersionCode="13070216"
+                maxVersionCode="13070216"
+                enabled="false" />
+        </raw>
+    </change-overrides>
+</overrides>

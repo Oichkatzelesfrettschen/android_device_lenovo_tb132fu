@@ -76,6 +76,11 @@ BOARD_SYSTEM_EXTIMAGE_PARTITION_SIZE := 360206336
 # is compiled or installed from this device tree.
 PRODUCT_FULL_TREBLE := true
 
+# Device-owned system_ext policy labels only the Goodix compatibility node
+# used by the native DT2W setting. Retained Lenovo vendor policy is untouched.
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += \
+    $(DEVICE_PATH)/sepolicy/system_ext/private
+
 # Acknowledge the exact optional HAL instances provided by Lenovo's retained
 # Android 12 vendor partition. Platform FCM5 requirements remain enabled and
 # are validated separately against the real 4.19 kernel configuration.

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lenovo TB132FU / Precision Pen 3 configuration from stock ROW Android 14. -->
+<penservice>
+    <market_names>
+        <market_name name="paladin">Lenovo Precision Pen 3</market_name>
+        <market_name name="paladin-c">Lenovo Precision Pen 3</market_name>
+        <market_name name="picasso">Lenovo Tab Pen Plus</market_name>
+        <market_name name="picasso-cd1">Lenovo Tab Pen Plus</market_name>
+        <market_name name="monet">Lenovo Tab Pen</market_name>
+    </market_names>
+    <device_names>
+        <device_name name="paladin">Lenovo Precision Pen 3</device_name>
+        <device_name name="paladin-c">Lenovo Precision Pen 3</device_name>
+        <device_name name="picasso">Lenovo Tab Pen Plus</device_name>
+        <device_name name="picasso-cd1">Lenovo Tab Pen Plus</device_name>
+        <device_name name="monet">Lenovo Tab Pen</device_name>
+    </device_names>
+    <settings_default_values>
+        <settings_default_value name="pen_set_quick_create_click_notes">1</settings_default_value>
+        <settings_default_value name="pen_set_quick_create_screenoff_notes">1</settings_default_value>
+    </settings_default_values>
+    <features>
+        <feature name="easy_jot">1</feature>
+        <feature name="pref_key_anti_accidental_touch">1</feature>
+        <feature name="pen_palm_rejection_custom_packages">1</feature>
+        <feature name="pen_dynamic_palm_rejection">1</feature>
+        <feature name="pen_activate_freewrite_on">1</feature>
+    </features>
+</penservice>

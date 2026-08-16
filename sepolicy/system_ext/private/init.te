@@ -1,0 +1,1 @@
+allow init proc_gesture_control:file rw_file_perms;
