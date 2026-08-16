@@ -23,5 +23,13 @@ bluetooth.profile.pan.nap.enabled?=true
 bluetooth.profile.pan.panu.enabled?=true
 bluetooth.profile.pbap.server.enabled?=true
 
+# Restore Lenovo's system-side Precision Pen identity. PenService checks the
+# ro.lenovo values as its supported fallback when the retained vendor image
+# does not publish the equivalent LGSI properties.
+persist.sys.lenovo.btpen.name=Lenovo Precision Pen 3
+ro.lenovo.feature.pen.bluetooth_key.support=1
+ro.lenovo.pen_info=0x612B:0x17EF:Lenovo Precision Pen 3
+ro.config.lgsi.pen.default_type=bluetooth
+
 # Stock MediaTek USB expects functionfs MTP.
 vendor.usb.use_ffs_mtp=1
