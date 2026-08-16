@@ -41,6 +41,18 @@ BOARD_TB132FU_DYNAMIC_PARTITIONS_PARTITION_LIST := \
 TARGET_COPY_OUT_PRODUCT := product
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 
+# The vendor partition is retained from Lenovo rather than emitted by this
+# build, but its copy-out root must still be declared.  Without this assignment,
+# the build defaults vendor content to system/vendor and creates /vendor as a
+# symlink, which prevents first-stage init from preserving the real vendor
+# mount while switching to the system-as-root image.
+TARGET_COPY_OUT_VENDOR := vendor
+
+# Lenovo's fstab mounts metadata during first-stage init.  Declare it so the
+# system-as-root image contains /metadata and SwitchRoot can move the live
+# metadata mount into the new root.
+BOARD_USES_METADATA_PARTITION := true
+
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
@@ -49,7 +61,11 @@ TARGET_USERIMAGES_USE_EXT4 := true
 # Leave room for filesystem metadata and incremental source growth while the
 # images are dynamically sized inside the stock main_a group.
 BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE := 268435456
-BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 268435456
+# Pin system to the allocation proven from the tablet's current super metadata.
+# This makes an oversized image fail at build time instead of relying on
+# fastbootd to resize a logical partition implicitly.  The temporary static
+# apexd probe still leaves roughly 255 MiB free in the fixed-size filesystem.
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1317494784
 BOARD_SYSTEM_EXTIMAGE_PARTITION_RESERVED_SIZE := 134217728
 
 # The retained Android 12 vendor supplies its own version-31 CIL policy and HAL

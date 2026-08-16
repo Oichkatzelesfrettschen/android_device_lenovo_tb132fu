@@ -1,0 +1,17 @@
+# Temporary Android 17 bring-up evidence hook. Remove after early boot is stable.
+
+on early-init
+    mkdir /metadata/tb132fu-a17-capture 0700 root root
+    write /metadata/tb132fu-a17-capture/reached-early-init ${ro.build.fingerprint}
+    copy /sys/fs/pstore/console-ramoops-0 /metadata/tb132fu-a17-capture/previous-console-ramoops-0
+    chmod 0600 /metadata/tb132fu-a17-capture/previous-console-ramoops-0
+
+on post-fs-data
+    mkdir /data/misc/tb132fu-a17-capture 0700 root root
+    write /data/misc/tb132fu-a17-capture/reached-post-fs-data ${ro.build.fingerprint}
+    copy /sys/fs/pstore/console-ramoops-0 /data/misc/tb132fu-a17-capture/previous-console-ramoops-0
+    chmod 0600 /data/misc/tb132fu-a17-capture/previous-console-ramoops-0
+
+on property:sys.boot_completed=1
+    write /metadata/tb132fu-a17-capture/reached-boot-complete ${ro.build.fingerprint}
+    write /data/misc/tb132fu-a17-capture/reached-boot-complete ${ro.build.fingerprint}
