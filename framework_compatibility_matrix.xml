@@ -454,6 +454,22 @@
         </interface>
     </hal>
     <hal format="hidl">
+        <name>vendor.lenovo.hardware.performance</name>
+        <version>1.0</version>
+        <interface>
+            <name>IPerformance</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.lenovo.hardware.touchscreen</name>
+        <version>1.0</version>
+        <interface>
+            <name>ITouchscreen</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
         <name>vendor.lenovo.hardware.touchscreen</name>
         <version>1.1</version>
         <interface>
