@@ -70,7 +70,6 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.vendor.mtk_aod_support=1
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init.tb132fu-a17-capture.rc:$(TARGET_COPY_OUT_SYSTEM)/etc/init/init.tb132fu-a17-capture.rc \
     $(LOCAL_PATH)/tb132fu-no-telephony.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/tb132fu-no-telephony.xml
 
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
