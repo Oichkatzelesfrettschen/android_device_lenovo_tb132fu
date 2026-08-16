@@ -61,15 +61,21 @@ PRODUCT_RESTRICT_VENDOR_FILES := all
 # Preserve CPU time-in-state accounting on the pre-BTF 4.19 kernel. The
 # loader selects this object only on kernels older than 5.10.
 PRODUCT_PACKAGES += \
-    timeInStateLegacy.bpf
+    timeInStateLegacy.bpf \
+    TB132FUFrameworkDisplayPowerOverlay \
+    TB132FUSettingsProviderDefaultsOverlay \
+    TB132FUSystemUIAodOverlay
 
 PRODUCT_SYSTEM_PROPERTIES += \
+    persist.sys.tb132fu.dt2w=1 \
     ro.bpf.platform_kver_override=5.10.0 \
     ro.custom.security_patch=$(PLATFORM_SECURITY_PATCH) \
     ro.surface_flinger.set_touch_timer_ms=1000 \
     ro.vendor.mtk_aod_support=1
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/tb132fu-no-telephony.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/tb132fu-no-telephony.xml
+    $(LOCAL_PATH)/init.tb132fu.rc:$(TARGET_COPY_OUT_SYSTEM)/etc/init/init.tb132fu.rc \
+    $(LOCAL_PATH)/tb132fu-no-telephony.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/tb132fu-no-telephony.xml \
+    frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.freeform_window_management.xml
 
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop

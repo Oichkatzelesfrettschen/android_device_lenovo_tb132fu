@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The RM692H0-family OLED panel and its vendor display stack expose a
+         functional low-power DOZE state, but not DOZE_SUSPEND. -->
+    <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
+    <bool name="config_dozeSupportsAodWallpaper">false</bool>
+    <bool name="config_displayBlanksAfterDoze">false</bool>
+    <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
+    <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
+    <integer name="config_screenBrightnessDoze">1</integer>
+    <bool name="config_displayBrightnessBucketsInDoze">false</bool>
+
+    <!-- The panel exposes physical 60 and 120 Hz modes. Android may idle at
+         60 Hz and touch-boost to 120 Hz within this range. -->
+    <integer name="config_defaultRefreshRate">60</integer>
+    <integer name="config_defaultPeakRefreshRate">120</integer>
+
+    <!-- Android 17 desktop-first mode switches the internal display to desktop
+         windowing only while the pogo keyboard and touchpad are both active. -->
+    <bool name="config_isDesktopModeSupported">true</bool>
+    <bool name="config_canInternalDisplayHostDesktops">true</bool>
+    <bool name="config_isDesktopModeDevOptionSupported">true</bool>
+    <bool name="config_enterDesktopByDefaultOnFreeformDisplay">true</bool>
+    <bool name="config_showHomeBehindDesktop">true</bool>
+</resources>

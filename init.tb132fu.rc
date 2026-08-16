@@ -1,0 +1,11 @@
+# Copyright (C) 2026
+# SPDX-License-Identifier: Apache-2.0
+
+# Keep the Goodix gesture engine in sync with the native device setting. The
+# persistent property is replayed by init after /data is mounted, and each
+# setting change retriggers exactly one of these actions.
+on property:persist.sys.tb132fu.dt2w=1
+    write /proc/gesture_control 1
+
+on property:persist.sys.tb132fu.dt2w=0
+    write /proc/gesture_control 0

@@ -1,0 +1,4 @@
+runtime_resource_overlay {
+    name: "TB132FUFrameworkDisplayPowerOverlay",
+    product_specific: true,
+}
