@@ -74,6 +74,14 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.surface_flinger.set_touch_timer_ms=1000 \
     ro.vendor.mtk_aod_support=1
 
+# The unlocked boot state otherwise makes adbd treat an absent property as
+# authentication disabled. Keep userdebug convenient for controlled bring-up,
+# but require host-key authentication whenever a hardened user build enables
+# USB debugging explicitly.
+ifeq ($(TARGET_BUILD_VARIANT),user)
+PRODUCT_SYSTEM_PROPERTIES += ro.adb.secure=1
+endif
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/displayconfig/default.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/displayconfig/default.xml \
     $(LOCAL_PATH)/init.tb132fu.rc:$(TARGET_COPY_OUT_SYSTEM)/etc/init/init.tb132fu.rc \

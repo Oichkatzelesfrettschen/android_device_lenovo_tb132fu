@@ -8,6 +8,10 @@ vendor/ODM/firmware/calibration partitions.
 The initial product is intentionally plain `aosp_tb132fu`. Pixel-like features
 and final branding are gated on a stable hardware-complete AOSP 17 boot.
 
+The `user` variant also sets `ro.adb.secure=1`; USB debugging remains a user
+choice, and enabling it on the unlocked tablet still requires an authorized
+host key.
+
 The device product retains the exact stock Lenovo pen service as a hash-pinned,
 locally supplied proprietary prebuilt. It does not inherit the old GSI product
 or TrebleDroid to obtain that hardware component.
