@@ -75,6 +75,7 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.vendor.mtk_aod_support=1
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/displayconfig/default.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/displayconfig/default.xml \
     $(LOCAL_PATH)/init.tb132fu.rc:$(TARGET_COPY_OUT_SYSTEM)/etc/init/init.tb132fu.rc \
     $(LOCAL_PATH)/permissions/privapp-permissions-lenovo-penservice.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-lenovo-penservice.xml \
     $(LOCAL_PATH)/etc/appcompat/compat_framework_overrides.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/appcompat/compat_framework_overrides.xml \

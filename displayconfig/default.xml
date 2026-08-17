@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Keep the panel's native 1536x2560 mode while matching the Android 16.2
+  layout physically accepted on TB132FU. At 307 dpi the 1536-pixel short edge
+  is 801 dp, restoring the large-tablet resource class used by Pixel Tablet
+  layouts. The retained stock density of 320 dpi classifies it as only 768 dp.
+-->
+<displayConfiguration>
+    <name>TB132FU built-in display</name>
+    <densityMapping>
+        <density>
+            <width>1536</width>
+            <height>2560</height>
+            <density>307</density>
+        </density>
+    </densityMapping>
+</displayConfiguration>
