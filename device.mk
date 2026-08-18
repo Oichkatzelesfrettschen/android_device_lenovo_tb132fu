@@ -74,6 +74,15 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.surface_flinger.set_touch_timer_ms=1000 \
     ro.vendor.mtk_aod_support=1
 
+# Lenovo's frozen vendor image selects the obsolete non-threaded SkiaGL
+# backend. Android 17 always wraps RenderEngine in a worker thread, but passing
+# Threaded::No to the inner Skia engine disables its external-buffer texture
+# cache and forces SurfaceFlinger to re-import every client layer every frame.
+# Product properties load after vendor properties, so override the stale value
+# without modifying the preserved vendor partition.
+PRODUCT_PRODUCT_PROPERTIES += \
+    debug.renderengine.backend=skiaglthreaded
+
 # The unlocked boot state otherwise makes adbd treat an absent property as
 # authentication disabled. Keep userdebug convenient for controlled bring-up,
 # but require host-key authentication whenever a hardened user build enables
