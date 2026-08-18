@@ -4,8 +4,11 @@
     <string name="config_icon_mask" translatable="false">M50 0A50 50,0,1,1,50 100A50 50,0,1,1,50 0</string>
 
     <!-- The RM692H0-family OLED panel and its vendor display stack expose a
-         functional low-power DOZE state, but not DOZE_SUSPEND. -->
+         functional DOZE state, but not DOZE_SUSPEND. Keep AOD available as an
+         explicit opt-in, but default it off: physical qualification measured
+         0% CPU deep sleep in AOD versus 94.66% with the panel fully off. -->
     <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
+    <bool name="config_dozeAlwaysOnEnabled">false</bool>
     <bool name="config_dozeSupportsAodWallpaper">false</bool>
     <bool name="config_displayBlanksAfterDoze">false</bool>
     <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
