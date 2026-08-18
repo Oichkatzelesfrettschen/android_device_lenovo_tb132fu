@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Use a circular adaptive-icon mask for a consistent tablet UI. -->
+    <string name="config_icon_mask" translatable="false">M50 0A50 50,0,1,1,50 100A50 50,0,1,1,50 0</string>
+
     <!-- The RM692H0-family OLED panel and its vendor display stack expose a
          functional low-power DOZE state, but not DOZE_SUSPEND. -->
     <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>

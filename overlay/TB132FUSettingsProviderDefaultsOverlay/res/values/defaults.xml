@@ -3,4 +3,6 @@
     <!-- Tablets should rotate by default; DT2W is already an AOSP default and
          is additionally synchronized to the Goodix proc node by init. -->
     <bool name="def_accelerometer_rotation">true</bool>
+    <!-- The validated ambient-light sensor supports automatic brightness. -->
+    <bool name="def_screen_brightness_automatic_mode">true</bool>
 </resources>
