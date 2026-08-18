@@ -1,20 +1,29 @@
 # Lenovo TB132FU Android 17 device product
 
-This is the device-owned native AOSP scaffold for the Wi-Fi Lenovo Tab P11 Pro
-(2nd Gen), model TB132FU. Initial builds replace `system`, `system_ext`, and
-`product` while retaining the accepted non-GKI boot pipeline and stock
-vendor/ODM/firmware/calibration partitions.
+This is the hardware-complete native Android 17 device product for the Wi-Fi
+Lenovo Tab P11 Pro (2nd Gen), model TB132FU. It replaces `system`,
+`system_ext`, and `product` while retaining the accepted non-GKI boot pipeline
+and stock vendor/ODM/firmware/calibration partitions.
 
-The initial product is intentionally plain `aosp_tb132fu`. Pixel-like features
-and final branding are gated on a stable hardware-complete AOSP 17 boot.
+The published product is intentionally plain `aosp_tb132fu`. It contains no
+Google application packages, private signing keys, or private release inputs.
+Those may be composed in a separate local product layer without changing this
+device-owned hardware tree.
+
+Supported lunch targets are `aosp_tb132fu-cp2a-userdebug` and
+`aosp_tb132fu-cp2a-user`. The open tree keeps AOSP-sized logical-image ceilings;
+larger private package compositions must define and validate their own measured
+partition ceilings rather than silently resizing the tablet's saved super
+geometry.
 
 The `user` variant also sets `ro.adb.secure=1`; USB debugging remains a user
 choice, and enabling it on the unlocked tablet still requires an authorized
 host key.
 
-The device product retains the exact stock Lenovo pen service as a hash-pinned,
-locally supplied proprietary prebuilt. It does not inherit the old GSI product
-or TrebleDroid to obtain that hardware component.
+The device product expects the exact stock Lenovo pen service as a hash-pinned,
+locally supplied proprietary prebuilt. It is intentionally ignored by Git;
+see `prebuilt/README.md` for the required identity. The product does not inherit
+the old GSI product or TrebleDroid to obtain that hardware component.
 
 The panel policy exposes Standard (60 Hz), Fluid (content-aware 60–120 Hz), and
 Force 120 Hz modes. Fluid keeps the framework default render ceiling at 120 Hz
