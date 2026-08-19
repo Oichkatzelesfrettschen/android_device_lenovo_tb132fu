@@ -1,6 +1,16 @@
 # Copyright (C) 2026
 # SPDX-License-Identifier: Apache-2.0
 
+# TB132FU normally remains in its bootloader-owned static charging screen, but
+# retain Android's standard charger service as a safe fallback for low-battery
+# and alternate cable paths. It can automatically continue normal boot only
+# once the configured minimum battery level is available.
+service charger /system/bin/charger
+    class charger
+    user system
+    group system wakelock input
+    capabilities SYS_BOOT
+
 # Keep the Goodix gesture engine in sync with the native device setting. The
 # persistent property is replayed by init after /data is mounted, and each
 # setting change retriggers exactly one of these actions.

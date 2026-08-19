@@ -61,6 +61,7 @@ PRODUCT_RESTRICT_VENDOR_FILES := all
 # Preserve CPU time-in-state accounting on the pre-BTF 4.19 kernel. The
 # loader selects this object only on kernels older than 5.10.
 PRODUCT_PACKAGES += \
+    charger_res_images \
     LenovoPenService \
     timeInStateLegacy.bpf \
     TB132FUFrameworkDisplayPowerOverlay \
@@ -70,9 +71,21 @@ PRODUCT_PACKAGES += \
 PRODUCT_SYSTEM_PROPERTIES += \
     persist.sys.tb132fu.dt2w=1 \
     ro.bpf.platform_kver_override=5.10.0 \
+    ro.charger_mode_autoboot=true \
     ro.custom.security_patch=$(PLATFORM_SECURITY_PATCH) \
+    ro.enable_boot_charger_mode=false \
+    ro.minui.pixel_format=BGRA_8888 \
+    ro.product.charger.boot_min_cap=3 \
     ro.surface_flinger.set_touch_timer_ms=1000 \
     ro.vendor.mtk_aod_support=1
+
+# Keep the standard AOSP charger as a low-battery fallback. The Lenovo
+# bootloader normally owns the visible powered-off charging screen, but if it
+# enters Android charger mode this contract automatically performs a full
+# reboot at three percent while preventing a boot attempt below that threshold.
+# Do not use init's in-place boot-from-charger transition: the retained MTK
+# display stack can finish Android behind a stale Google boot surface unless
+# LK and the panel are reinitialized by a real reboot.
 
 # Lenovo's frozen vendor image selects the obsolete non-threaded SkiaGL
 # backend. Android 17 always wraps RenderEngine in a worker thread, but passing
