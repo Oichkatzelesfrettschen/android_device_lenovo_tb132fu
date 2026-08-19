@@ -35,9 +35,11 @@ Double-tap-to-wake is bridged from the persistent TB132FU setting to the stock
 Goodix `/proc/gesture_control` node by init. Device policy gives that exact proc
 node its own SELinux type instead of granting init access to generic proc files.
 
-It must not inherit PHH, TrebleDroid, `gsi_release.mk`, or another device tree.
-Do not build or flash a replacement vendor, ODM, super, bootloader, modem,
-persist, NVRAM/NVDATA, or calibration image from this tree.
+This is a native TB132FU product definition; it does not depend on PHH,
+TrebleDroid, or `gsi_release.mk`. It emits only the framework-owned `system`,
+`system_ext`, and `product` images. Lenovo's existing vendor, ODM, bootloader,
+firmware, persist, NVRAM/NVDATA, and calibration partitions remain preserved
+device inputs and are outside this repository's build and flashing scope.
 
 ## Source and release boundary
 
