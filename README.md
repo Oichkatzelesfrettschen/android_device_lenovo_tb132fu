@@ -20,10 +20,11 @@ The `user` variant also sets `ro.adb.secure=1`; USB debugging remains a user
 choice, and enabling it on the unlocked tablet still requires an authorized
 host key.
 
-The device product expects the exact stock Lenovo pen service as a hash-pinned,
-locally supplied proprietary prebuilt. It is intentionally ignored by Git;
-see `prebuilt/README.md` for the required identity. The product does not inherit
-the old GSI product or TrebleDroid to obtain that hardware component.
+The device product expects the exact stock Lenovo pen service and two pen
+notification sounds as hash-pinned, locally supplied proprietary inputs. They
+are intentionally ignored by Git; see `prebuilt/README.md` for the required
+identities. The product does not inherit the old GSI product or TrebleDroid to
+obtain those hardware components.
 
 The panel policy exposes Standard (60 Hz), Fluid (content-aware 60–120 Hz), and
 Force 120 Hz modes. Fluid keeps the framework default render ceiling at 120 Hz
@@ -37,3 +38,17 @@ node its own SELinux type instead of granting init access to generic proc files.
 It must not inherit PHH, TrebleDroid, `gsi_release.mk`, or another device tree.
 Do not build or flash a replacement vendor, ODM, super, bootloader, modem,
 persist, NVRAM/NVDATA, or calibration image from this tree.
+
+## Source and release boundary
+
+This repository contains the open TB132FU device integration only. Pure Pixel
+17 R1 additionally uses Android platform compatibility topics, the separately
+published TB132FU kernel, locally supplied proprietary Lenovo payloads, and a
+private optional Google/Pixel package composition. The device tree alone is
+therefore useful for native ROM bring-up and collaboration, but is not a
+complete byte-for-byte Pure Pixel build manifest.
+
+The R1 public device-source tag is `purepixel17-r1-device`. Source files in
+this repository are provided under Apache-2.0 unless an individual file states
+otherwise. No Lenovo or Google proprietary payload is licensed or distributed
+by this repository.
