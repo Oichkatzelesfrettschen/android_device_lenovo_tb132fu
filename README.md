@@ -16,6 +16,23 @@ larger private package compositions must define and validate their own measured
 partition ceilings rather than silently resizing the tablet's saved super
 geometry.
 
+## Required kernel
+
+Pure Pixel 17 R1 and this Android 17 device product require the separately
+maintained TB132FU kernel #13:
+
+- release source: [`tb132fu-purepixel17-r1-k13`](https://github.com/error311/tb132fu-kernel/tree/tb132fu-purepixel17-r1-k13)
+- release-source commit: `1679c289ffccf905d1aa549df5232ae04971495e`
+- exact compiled implementation commit: `5b0f70f39eff047774cf24d61301f92506330113`
+- kernel release: `4.19.325-cip135-st19+`
+
+This device tree intentionally sets `TARGET_NO_KERNEL := true`: it builds the
+framework-owned Android images but does not assemble `boot.img`. A flashable
+TB132FU boot image also requires the matching kernel configuration, DTB,
+ramdisk, Android boot-header geometry, and AVB metadata. Follow the kernel
+repository's build documentation and the matching ROM release process rather
+than flashing a standalone `Image` or `Image.gz`.
+
 The `user` variant also sets `ro.adb.secure=1`; USB debugging remains a user
 choice, and enabling it on the unlocked tablet still requires an authorized
 host key.
