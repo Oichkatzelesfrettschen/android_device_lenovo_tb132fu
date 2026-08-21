@@ -18,13 +18,17 @@ geometry.
 
 ## Required kernel
 
-Pure Pixel 17 R1 and this Android 17 device product require the separately
-maintained TB132FU kernel #13:
+Pure Pixel 17 R2 and this Android 17 device product use the separately
+maintained TB132FU kernel #14:
 
-- release source: [`tb132fu-purepixel17-r1-k13`](https://github.com/error311/tb132fu-kernel/tree/tb132fu-purepixel17-r1-k13)
-- release-source commit: `1679c289ffccf905d1aa549df5232ae04971495e`
-- exact compiled implementation commit: `5b0f70f39eff047774cf24d61301f92506330113`
+- release source: [`tb132fu-purepixel17-r2-k14`](https://github.com/error311/tb132fu-kernel/tree/tb132fu-purepixel17-r2-k14)
+- release-source commit: `2ed70c0ba4563`
+- exact compiled implementation commit: `f766d4120417b`
 - kernel release: `4.19.325-cip135-st19+`
+
+Kernel #14 retains the R1 kernel #13 hardware and ABI baseline and adds focused
+BQ27541 battery-health and cycle-count reporting for Android 17's Battery
+Health page.
 
 This device tree intentionally sets `TARGET_NO_KERNEL := true`: it builds the
 framework-owned Android images but does not assemble `boot.img`. A flashable
@@ -61,13 +65,14 @@ device inputs and are outside this repository's build and flashing scope.
 ## Source and release boundary
 
 This repository contains the open TB132FU device integration only. Pure Pixel
-17 R1 additionally uses Android platform compatibility topics, the separately
+17 R2 additionally uses Android platform compatibility topics, the separately
 published TB132FU kernel, locally supplied proprietary Lenovo payloads, and a
 private optional Google/Pixel package composition. The device tree alone is
 therefore useful for native ROM bring-up and collaboration, but is not a
 complete byte-for-byte Pure Pixel build manifest.
 
-The R1 public device-source tag is `purepixel17-r1-device`. Source files in
-this repository are provided under Apache-2.0 unless an individual file states
-otherwise. No Lenovo or Google proprietary payload is licensed or distributed
-by this repository.
+The R2 public device-source tag is `purepixel17-r2-device`; the R1 tag remains
+available for the previous release. Source files in this repository are
+provided under Apache-2.0 unless an individual file states otherwise. No
+Lenovo or Google proprietary payload is licensed or distributed by this
+repository.
