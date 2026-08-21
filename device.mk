@@ -65,6 +65,7 @@ PRODUCT_PACKAGES += \
     LenovoPenService \
     timeInStateLegacy.bpf \
     TB132FUFrameworkDisplayPowerOverlay \
+    TB132FUSettingsOverlay \
     TB132FUSettingsProviderDefaultsOverlay \
     TB132FUSystemUIAodOverlay
 
