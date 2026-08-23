@@ -1,0 +1,3 @@
+# TB132FU has no cache partition, so uncrypt stores its block map in metadata.
+allow uncrypt ota_metadata_file:dir rw_dir_perms;
+allow uncrypt ota_metadata_file:file create_file_perms;

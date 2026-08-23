@@ -1,0 +1,18 @@
+type purepixel_updater_app, domain, coredomain;
+
+app_domain(purepixel_updater_app)
+net_domain(purepixel_updater_app)
+
+binder_call(purepixel_updater_app, gpuservice)
+
+allow purepixel_updater_app app_api_service:service_manager find;
+allow purepixel_updater_app system_api_service:service_manager find;
+allow purepixel_updater_app recovery_service:service_manager find;
+
+allow purepixel_updater_app app_data_file:dir create_dir_perms;
+allow purepixel_updater_app app_data_file:{ file lnk_file } create_file_perms;
+
+allow purepixel_updater_app ota_package_file:dir create_dir_perms;
+allow purepixel_updater_app ota_package_file:file create_file_perms;
+
+get_prop(purepixel_updater_app, build_prop)

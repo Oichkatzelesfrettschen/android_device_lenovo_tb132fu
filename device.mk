@@ -18,6 +18,10 @@ $(call inherit-product-if-exists, frameworks/base/data/sounds/AllAudio.mk)
 
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 PRODUCT_USE_DYNAMIC_PARTITION_SIZE := true
+PRODUCT_SOONG_NAMESPACES += bootable/deprecated-ota
+
+# Lenovo's public firmware packages populate only slot A. Pure Pixel uses the
+# classic recovery updater and does not advertise a virtual A/B payload path.
 
 # Keep the stock device's 4 KiB ABI. The frozen vendor/ODM stack is not 16 KiB
 # compatible.
@@ -62,7 +66,9 @@ PRODUCT_RESTRICT_VENDOR_FILES := all
 # loader selects this object only on kernels older than 5.10.
 PRODUCT_PACKAGES += \
     charger_res_images \
+    FaceUnlock \
     LenovoPenService \
+    Updater \
     timeInStateLegacy.bpf \
     TB132FUFrameworkDisplayPowerOverlay \
     TB132FUSettingsOverlay \
@@ -71,6 +77,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_SYSTEM_PROPERTIES += \
     persist.sys.tb132fu.dt2w=1 \
+    ro.updater.install_enabled=true \
+    ro.face.sense_service=true \
     ro.bpf.platform_kver_override=5.10.0 \
     ro.charger_mode_autoboot=true \
     ro.custom.security_patch=$(PLATFORM_SECURITY_PATCH) \
@@ -95,7 +103,11 @@ PRODUCT_SYSTEM_PROPERTIES += \
 # Product properties load after vendor properties, so override the stale value
 # without modifying the preserved vendor partition.
 PRODUCT_PRODUCT_PROPERTIES += \
-    debug.renderengine.backend=skiaglthreaded
+    debug.renderengine.backend=skiaglthreaded \
+    ro.build.ab_update=false \
+    ro.virtual_ab.compression.enabled=false \
+    ro.virtual_ab.enabled=false \
+    ro.virtual_ab.userspace.snapshots.enabled=false
 
 # The unlocked boot state otherwise makes adbd treat an absent property as
 # authentication disabled. Keep userdebug convenient for controlled bring-up,
@@ -114,6 +126,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/pen_mono.wav:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/pen_mono.wav \
     $(LOCAL_PATH)/prebuilt/pen_sound.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/pen_sound.ogg \
     $(LOCAL_PATH)/tb132fu-no-telephony.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/tb132fu-no-telephony.xml \
+    frameworks/native/data/etc/android.hardware.biometrics.face.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/android.hardware.biometrics.face.xml \
     frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.freeform_window_management.xml
 
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop

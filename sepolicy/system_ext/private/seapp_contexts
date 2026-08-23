@@ -1,0 +1,2 @@
+# Platform-signed updater with a device-specific, narrow SELinux domain.
+user=_app isPrivApp=true seinfo=platform name=org.lineageos.updater domain=purepixel_updater_app type=app_data_file levelFrom=user

@@ -23,6 +23,11 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_KERNEL := true
 TARGET_NO_RECOVERY := true
 
+# Lenovo's public firmware packages populate only slot A. Use the classic
+# recovery updater and device releasetools so an OTA never targets slot B.
+AB_OTA_UPDATER := false
+TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
+
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 BOARD_DTBOIMG_PARTITION_SIZE := 8388608
 BOARD_FLASH_BLOCK_SIZE := 4096

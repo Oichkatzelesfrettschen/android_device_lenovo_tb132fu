@@ -11,6 +11,16 @@ service charger /system/bin/charger
     group system wakelock input
     capabilities SYS_BOOT
 
+# Keep downloaded packages and the uncrypt handoff on the partitions available
+# to this cacheless non-A/B device. Recovery mounts metadata at /cache.
+on post-fs-data
+    mkdir /data/purepixel_updates 0770 system cache encryption=Require
+    restorecon_recursive /data/purepixel_updates
+    mkdir /metadata/ota/purepixel 0770 system cache
+    restorecon_recursive /metadata/ota/purepixel
+    mkdir /metadata/recovery 0770 system cache
+    restorecon_recursive /metadata/recovery
+
 # Keep the Goodix gesture engine in sync with the native device setting. The
 # persistent property is replayed by init after /data is mounted, and each
 # setting change retriggers exactly one of these actions.

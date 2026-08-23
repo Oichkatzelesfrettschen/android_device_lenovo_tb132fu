@@ -52,6 +52,13 @@ Force 120 Hz modes. Fluid keeps the framework default render ceiling at 120 Hz
 so SurfaceFlinger's touch/content policy can select both physical modes; the
 user's peak and minimum settings provide the Standard and Force 120 clamps.
 
+R2 also integrates the open LineageOS Updater and Evolution-X FaceUnlock
+projects listed by the platform-patches manifest. The updater is adapted to
+generate and install signed full recovery packages on the active slot A. It
+does not use Android's A/B payload engine, prepare slot B, or replace retained
+Lenovo partitions. Face unlock is exposed as a convenience biometric and is
+not a substitute for a PIN or a hardware-backed strong biometric.
+
 Double-tap-to-wake is bridged from the persistent TB132FU setting to the stock
 Goodix `/proc/gesture_control` node by init. Device policy gives that exact proc
 node its own SELinux type instead of granting init access to generic proc files.
