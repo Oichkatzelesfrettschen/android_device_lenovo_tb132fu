@@ -77,6 +77,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_SYSTEM_PROPERTIES += \
     persist.sys.tb132fu.dt2w=1 \
+    ro.bootanim.set_orientation_logical_0=ORIENTATION_90 \
     ro.updater.install_enabled=true \
     ro.face.sense_service=true \
     ro.bpf.platform_kver_override=5.10.0 \

@@ -8,4 +8,9 @@
          materially less power at 60 Hz while normal display policy remains
          under the user's refresh-rate preference. -->
     <integer name="config_keyguardMaxRefreshRate">60</integer>
+    <!-- The panel reports a portrait natural orientation, where the chassis power button is on
+         the top edge near the right corner. ROTATION_90 maps it to the upper-left screen edge in
+         the tablet's normal landscape posture. -->
+    <integer name="physical_power_button_screen_edge">0</integer>
+    <dimen name="physical_power_button_center_screen_location_y">1220px</dimen>
 </resources>

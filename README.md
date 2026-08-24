@@ -18,7 +18,7 @@ geometry.
 
 ## Required kernel
 
-Pure Pixel 17 R2 and this Android 17 device product use the separately
+Pure Pixel 17 R3 and this Android 17 device product use the separately
 maintained TB132FU kernel #14:
 
 - release source: [`tb132fu-purepixel17-r2-k14`](https://github.com/error311/tb132fu-kernel/tree/tb132fu-purepixel17-r2-k14)
@@ -52,7 +52,7 @@ Force 120 Hz modes. Fluid keeps the framework default render ceiling at 120 Hz
 so SurfaceFlinger's touch/content policy can select both physical modes; the
 user's peak and minimum settings provide the Standard and Force 120 clamps.
 
-R2 also integrates the open LineageOS Updater and Evolution-X FaceUnlock
+Pure Pixel also integrates the open LineageOS Updater and Evolution-X FaceUnlock
 projects listed by the platform-patches manifest. The updater is adapted to
 generate and install signed full recovery packages on the active slot A. It
 does not use Android's A/B payload engine, prepare slot B, or replace retained
@@ -72,14 +72,17 @@ device inputs and are outside this repository's build and flashing scope.
 ## Source and release boundary
 
 This repository contains the open TB132FU device integration only. Pure Pixel
-17 R2 additionally uses Android platform compatibility topics, the separately
+17 R3 additionally uses Android platform compatibility topics, the separately
 published TB132FU kernel, locally supplied proprietary Lenovo payloads, and a
 private optional Google/Pixel package composition. The device tree alone is
 therefore useful for native ROM bring-up and collaboration, but is not a
 complete byte-for-byte Pure Pixel build manifest.
 
-The R2 public device-source tag is `purepixel17-r2-device`; the R1 tag remains
-available for the previous release. Source files in this repository are
-provided under Apache-2.0 unless an individual file states otherwise. No
-Lenovo or Google proprietary payload is licensed or distributed by this
-repository.
+R3 configures Android's standard boot-animation projection for the tablet's
+landscape startup and maps the AOD reveal to the physical power-button
+location. The matching Google boot animation is not distributed here.
+
+The R3 public device-source tag is `purepixel17-r3-device`; the R2 and R1 tags
+remain available for previous releases. Source files in this repository are
+provided under Apache-2.0 unless an individual file states otherwise. No Lenovo
+or Google proprietary payload is licensed or distributed by this repository.
