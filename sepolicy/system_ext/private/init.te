@@ -1,2 +1,8 @@
 allow init proc_gesture_control:file rw_file_perms;
 allow init sysfs_goodix_pen:file w_file_perms;
+allow init sysfs_tb132fu_charge_limit:file w_file_perms;
+
+# Select the Android 17 Bluetooth audio bridge with two fixed read-only bind
+# mounts. No application or vendor domain gains mount access, and vendor files
+# remain non-writable under the platform neverallows.
+allow init vendor_file:file mounton;

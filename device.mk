@@ -20,8 +20,10 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 PRODUCT_USE_DYNAMIC_PARTITION_SIZE := true
 PRODUCT_SOONG_NAMESPACES += bootable/deprecated-ota
 
-# Lenovo's public firmware packages populate only slot A. Pure Pixel uses the
-# classic recovery updater and does not advertise a virtual A/B payload path.
+# Lenovo's public firmware packages populate only slot A. A controlled test
+# proved that synthesizing and booting a B-side chain can make the proprietary
+# boot firmware restore the global locked state. Pure Pixel therefore uses the
+# classic recovery updater and deliberately does not advertise an A/B path.
 
 # Keep the stock device's 4 KiB ABI. The frozen vendor/ODM stack is not 16 KiB
 # compatible.
@@ -65,6 +67,7 @@ PRODUCT_RESTRICT_VENDOR_FILES := all
 # Preserve CPU time-in-state accounting on the pre-BTF 4.19 kernel. The
 # loader selects this object only on kernels older than 5.10.
 PRODUCT_PACKAGES += \
+    audio.bluetooth.purepixel \
     charger_res_images \
     FaceUnlock \
     LenovoPenService \
@@ -77,6 +80,12 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_SYSTEM_PROPERTIES += \
     persist.sys.tb132fu.dt2w=1 \
+    persist.sys.tb132fu.charge_limit=0 \
+    ro.purepixel.harden.aee=1 \
+    ro.purepixel.harden.factory=1 \
+    ro.purepixel.harden.getgameserver=1 \
+    ro.purepixel.harden.performance=1 \
+    ro.purepixel.harden.vndservicemanager=0 \
     ro.bootanim.set_orientation_logical_0=ORIENTATION_90 \
     ro.updater.install_enabled=true \
     ro.face.sense_service=true \
@@ -101,8 +110,10 @@ PRODUCT_SYSTEM_PROPERTIES += \
 # backend. Android 17 always wraps RenderEngine in a worker thread, but passing
 # Threaded::No to the inner Skia engine disables its external-buffer texture
 # cache and forces SurfaceFlinger to re-import every client layer every frame.
-# Product properties load after vendor properties, so override the stale value
-# without modifying the preserved vendor partition.
+# Product properties load after vendor properties, so override stale Lenovo
+# values without modifying the preserved vendor partition. Lenovo advertises
+# Virtual A/B even though its public firmware populates only slot A; Pure Pixel
+# forces the classic recovery updater and never activates a B-side payload.
 PRODUCT_PRODUCT_PROPERTIES += \
     debug.renderengine.backend=skiaglthreaded \
     ro.build.ab_update=false \

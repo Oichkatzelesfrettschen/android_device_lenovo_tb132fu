@@ -18,17 +18,17 @@ geometry.
 
 ## Required kernel
 
-Pure Pixel 17 R3 and this Android 17 device product use the separately
-maintained TB132FU kernel #14:
+Pure Pixel 17 R4 and this Android 17 device product use the separately
+maintained TB132FU Kernel #17:
 
-- release source: [`tb132fu-purepixel17-r2-k14`](https://github.com/error311/tb132fu-kernel/tree/tb132fu-purepixel17-r2-k14)
-- release-source commit: `2ed70c0ba4563`
-- exact compiled implementation commit: `f766d4120417b`
+- release source: [`tb132fu-purepixel17-r4-k17`](https://github.com/error311/tb132fu-kernel/tree/tb132fu-purepixel17-r4-k17)
+- release-source commit: `71b4644268320`
 - kernel release: `4.19.325-cip135-st19+`
 
-Kernel #14 retains the R1 kernel #13 hardware and ABI baseline and adds focused
-BQ27541 battery-health and cycle-count reporting for Android 17's Battery
-Health page.
+Kernel #17 retains the Kernel #14 hardware and ABI baseline, including BQ27541
+battery-health reporting. It restores the GT9768 rear-camera autofocus path,
+reports negotiated charging capability, and enforces the native 80% charge
+limit across both the main charger and independent SC8551 PPS charge pump.
 
 This device tree intentionally sets `TARGET_NO_KERNEL := true`: it builds the
 framework-owned Android images but does not assemble `boot.img`. A flashable
@@ -72,17 +72,18 @@ device inputs and are outside this repository's build and flashing scope.
 ## Source and release boundary
 
 This repository contains the open TB132FU device integration only. Pure Pixel
-17 R3 additionally uses Android platform compatibility topics, the separately
+17 R4 additionally uses Android platform compatibility topics, the separately
 published TB132FU kernel, locally supplied proprietary Lenovo payloads, and a
 private optional Google/Pixel package composition. The device tree alone is
 therefore useful for native ROM bring-up and collaboration, but is not a
 complete byte-for-byte Pure Pixel build manifest.
 
-R3 configures Android's standard boot-animation projection for the tablet's
-landscape startup and maps the AOD reveal to the physical power-button
-location. The matching Google boot animation is not distributed here.
+R4 retains the landscape startup and power-button AOD reveal behavior from R3.
+It also adds the qualified Bluetooth-audio compatibility bridge, native charge
+limit integration, and reversible controls for obsolete vendor services. The
+matching Google boot animation is not distributed here.
 
-The R3 public device-source tag is `purepixel17-r3-device`; the R2 and R1 tags
-remain available for previous releases. Source files in this repository are
-provided under Apache-2.0 unless an individual file states otherwise. No Lenovo
-or Google proprietary payload is licensed or distributed by this repository.
+The R4 release branch is `purepixel17-tb132fu-r4`; R3, R2, and R1 tags remain
+available for previous releases. Source files in this repository are provided
+under Apache-2.0 unless an individual file states otherwise. No Lenovo or
+Google proprietary payload is licensed or distributed by this repository.

@@ -11,13 +11,29 @@ service charger /system/bin/charger
     group system wakelock input
     capabilities SYS_BOOT
 
-# Keep downloaded packages and the uncrypt handoff on the partitions available
-# to this cacheless non-A/B device. Recovery mounts metadata at /cache.
+# Lenovo's Android 14 audio service publishes the standard Bluetooth Audio
+# provider and MediaTek's private provider in one process, but its bridge opens
+# only the private session registry. Android 17 starts the standard session, so
+# that bridge never becomes ready. Select the matching open bridge during
+# post-fs, before the vendor HAL class starts. These read-only bind mounts leave
+# vendor unchanged; a failed mount safely falls back to Lenovo's original
+# bridge.
+on post-fs
+    mount none /system/lib/hw/audio.bluetooth.purepixel.so /vendor/lib/hw/audio.bluetooth.default.so bind ro
+    mount none /system/lib64/hw/audio.bluetooth.purepixel.so /vendor/lib64/hw/audio.bluetooth.default.so bind ro
+
+# Keep Pure Pixel OTA payloads outside GmsCore's /data/ota_package directory.
+# encryption=Require prevents downloads before credential-encrypted storage is
+# available.
 on post-fs-data
     mkdir /data/purepixel_updates 0770 system cache encryption=Require
     restorecon_recursive /data/purepixel_updates
+    # Cacheless non-A/B recovery needs its uncrypt block map on a partition
+    # that remains mountable before userdata keys are available.
     mkdir /metadata/ota/purepixel 0770 system cache
     restorecon_recursive /metadata/ota/purepixel
+    # Recovery mounts metadata at /cache. Create its legacy block-updater
+    # workspace here before an OTA is attempted.
     mkdir /metadata/recovery 0770 system cache
     restorecon_recursive /metadata/recovery
 
@@ -30,6 +46,14 @@ on property:persist.sys.tb132fu.dt2w=1
 on property:persist.sys.tb132fu.dt2w=0
     write /proc/gesture_control 0
 
+# Persist the Battery Health setting while the charger driver owns enforcement
+# and its 3% resume hysteresis. Init replays the property after every reboot.
+on property:persist.sys.tb132fu.charge_limit=80
+    write /sys/devices/platform/charger/charge_limit 80
+
+on property:persist.sys.tb132fu.charge_limit=0
+    write /sys/devices/platform/charger/charge_limit 0
+
 # The retained Goodix driver keeps active-pen scanning disabled until userspace
 # opts in through this device node. The old TrebleDroid compatibility script
 # performed this write globally; native TB132FU owns it explicitly. Waiting for
@@ -37,3 +61,49 @@ on property:persist.sys.tb132fu.dt2w=0
 # the node, and the driver then restores pen mode after every doze resume.
 on property:sys.boot_completed=1
     write /sys/devices/platform/goodix_ts.0/support_pen 1
+
+# These controls permit reversible userdebug qualification of narrowly
+# selected legacy vendor services without modifying the retained vendor image.
+# They are gated by ro.debuggable so a test property cannot alter a later user
+# build.
+on property:ro.debuggable=1 && property:persist.sys.purepixel.harden.getgameserver=1
+    stop getgameserver
+
+on property:ro.debuggable=1 && property:persist.sys.purepixel.harden.factory=1
+    stop factory_hal_service
+
+on property:ro.debuggable=1 && property:persist.sys.purepixel.harden.performance=1
+    stop performance
+
+on property:ro.debuggable=1 && property:persist.sys.purepixel.harden.aee=1
+    stop aee_aedv
+    stop aee_aedv64
+
+on property:ro.debuggable=1 && property:persist.sys.purepixel.harden.vndservicemanager=1
+    stop vndservicemanager
+
+# Release builds use immutable early-boot selections after the matching
+# userdebug candidate has passed physical qualification.
+on early-init && property:ro.purepixel.harden.getgameserver=1
+    stop getgameserver
+
+on early-init && property:ro.purepixel.harden.factory=1
+    stop factory_hal_service
+
+on early-init && property:ro.purepixel.harden.performance=1
+    stop performance
+
+on early-init && property:ro.purepixel.harden.aee=1
+    stop aee_aedv
+    stop aee_aedv64
+
+# Lenovo vendor init explicitly starts both AEE daemons during post-fs. Catch
+# that late start and any subsequent explicit restart without changing vendor.
+on property:init.svc.aee_aedv=running && property:ro.purepixel.harden.aee=1
+    stop aee_aedv
+
+on property:init.svc.aee_aedv64=running && property:ro.purepixel.harden.aee=1
+    stop aee_aedv64
+
+on early-init && property:ro.purepixel.harden.vndservicemanager=1
+    stop vndservicemanager
