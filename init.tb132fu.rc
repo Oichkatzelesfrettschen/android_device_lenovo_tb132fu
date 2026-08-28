@@ -19,6 +19,21 @@ service charger /system/bin/charger
 # vendor unchanged; a failed mount safely falls back to Lenovo's original
 # bridge.
 on post-fs
+    # Audio policy gives DisplayPort its own PCM16 stereo stream. Keep Lenovo's
+    # two-channel transport, but select a narrow wrapper that repeats each
+    # complete HDMI stereo frame at the final HAL boundary and scales the
+    # physical frame clock back to the logical 48 kHz stream. The wrapper loads
+    # only the exact read-only audited PCM16 Lenovo delegate and passes every
+    # non-HDMI path through unchanged. Android's vendor linker namespace cannot
+    # load a /system/lib delegate even by file descriptor, so expose the
+    # dedicated one-file system directory through vendor's otherwise unused
+    # lost+found directory first. Both are read-only bind mounts; the retained
+    # vendor filesystem is never written. Any unknown HDMI contract fails
+    # closed. Source locking, offline image qualification, and the runtime gate
+    # prove both files, the namespace alias, and the wrapper bind before flash.
+    mount none /system/lib/tb132fu-audio-delegate /vendor/lost+found bind ro
+    mount none /system/lib/hw/audio.primary.mt6893.framefix.so /vendor/lib/hw/audio.primary.mt6893.so bind ro
+
     mount none /system/lib/hw/audio.bluetooth.purepixel.so /vendor/lib/hw/audio.bluetooth.default.so bind ro
     mount none /system/lib64/hw/audio.bluetooth.purepixel.so /vendor/lib64/hw/audio.bluetooth.default.so bind ro
 

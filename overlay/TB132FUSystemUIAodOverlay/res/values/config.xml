@@ -3,6 +3,13 @@
     <bool name="doze_display_state_supported">true</bool>
     <bool name="doze_suspend_display_state_supported">true</bool>
     <bool name="doze_suspend_display_state_needs_time_tick_refresh">true</bool>
+    <!-- The measured lockscreen-to-AOD UI transition completes in about 450 ms. Keep a
+         conservative settle margin while arming Goodix gesture suspend well before AOSP's
+         four-second default. -->
+    <integer name="doze_enter_display_state_delay">750</integer>
+    <!-- Goodix wakes Android with KEYCODE_WAKEUP before its final wake tap reaches SystemUI.
+         Keep that residual gesture out of the new keyguard falsing history. -->
+    <integer name="falsing_post_aod_wake_grace_period">1000</integer>
     <bool name="doze_proximity_check_before_pulse">false</bool>
     <!-- The panel has native 60 and 120 Hz modes. Continuous AOD consumes
          materially less power at 60 Hz while normal display policy remains

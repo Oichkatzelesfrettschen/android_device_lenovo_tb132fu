@@ -67,10 +67,14 @@ PRODUCT_RESTRICT_VENDOR_FILES := all
 # Preserve CPU time-in-state accounting on the pre-BTF 4.19 kernel. The
 # loader selects this object only on kernels older than 5.10.
 PRODUCT_PACKAGES += \
+    Aperture \
     audio.bluetooth.purepixel \
     charger_res_images \
     FaceUnlock \
     LenovoPenService \
+    tb132fu_audio_hal_pcm16 \
+    tb132fu_audio_primary_framefix \
+    tb132fu_audio_primary_pcm16 \
     Updater \
     timeInStateLegacy.bpf \
     TB132FUFrameworkDisplayPowerOverlay \
@@ -79,6 +83,7 @@ PRODUCT_PACKAGES += \
     TB132FUSystemUIAodOverlay
 
 PRODUCT_SYSTEM_PROPERTIES += \
+    ro.purepixel.audio_policy.product_override=true \
     persist.sys.tb132fu.dt2w=1 \
     persist.sys.tb132fu.charge_limit=0 \
     ro.purepixel.harden.aee=1 \
@@ -130,9 +135,11 @@ PRODUCT_SYSTEM_PROPERTIES += ro.adb.secure=1
 endif
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/audio/audio_policy_configuration_a2dp_offload_disabled.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/audio_policy_configuration_a2dp_offload_disabled.xml \
     $(LOCAL_PATH)/displayconfig/default.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/displayconfig/default.xml \
     $(LOCAL_PATH)/init.tb132fu.rc:$(TARGET_COPY_OUT_SYSTEM)/etc/init/init.tb132fu.rc \
     $(LOCAL_PATH)/permissions/privapp-permissions-lenovo-penservice.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-lenovo-penservice.xml \
+    $(LOCAL_PATH)/sysconfig/tb132fu-aperture-app-lock-exempt.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/tb132fu-aperture-app-lock-exempt.xml \
     $(LOCAL_PATH)/etc/appcompat/compat_framework_overrides.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/appcompat/compat_framework_overrides.xml \
     $(LOCAL_PATH)/etc/pen/pen_config.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/pen/pen_config.xml \
     $(LOCAL_PATH)/prebuilt/pen_mono.wav:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/pen_mono.wav \

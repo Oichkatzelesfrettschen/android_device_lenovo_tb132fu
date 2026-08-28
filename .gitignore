@@ -1,6 +1,7 @@
 /prebuilt/PenService.apk
 /prebuilt/pen_mono.wav
 /prebuilt/pen_sound.ogg
+/prebuilt-local/
 __pycache__/
 *.jks
 *.keystore

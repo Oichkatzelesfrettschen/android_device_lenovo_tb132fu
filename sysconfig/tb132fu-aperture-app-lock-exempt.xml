@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026
+     SPDX-License-Identifier: Apache-2.0
+
+     Aperture replaces AOSP Camera2 for this product. Keep the system camera
+     outside Android's App Lock so secure-camera entry points remain usable.
+-->
+<config>
+    <app-lock-exempt package="org.lineageos.aperture" />
+</config>

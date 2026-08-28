@@ -1,0 +1,8 @@
+cc_binary {
+    name: "tb132fu_dp_audio_ctl",
+    srcs: ["tb132fu-dp-audio-ctl.c"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+}

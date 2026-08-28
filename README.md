@@ -18,17 +18,17 @@ geometry.
 
 ## Required kernel
 
-Pure Pixel 17 R4 and this Android 17 device product use the separately
-maintained TB132FU Kernel #17:
+Pure Pixel 17 R5 and this Android 17 device product use the separately
+maintained TB132FU Kernel #51:
 
-- release source: [`tb132fu-purepixel17-r4-k17`](https://github.com/error311/tb132fu-kernel/tree/tb132fu-purepixel17-r4-k17)
-- release-source commit: `71b4644268320`
-- kernel release: `4.19.325-cip135-st19+`
+- release source: [`tb132fu-purepixel17-r5-k51`](https://github.com/error311/tb132fu-kernel/tree/tb132fu-purepixel17-r5-k51)
+- release-source commit: `816fac02dd50c`
+- kernel release: `4.19.325-cip135-st51+`
 
-Kernel #17 retains the Kernel #14 hardware and ABI baseline, including BQ27541
-battery-health reporting. It restores the GT9768 rear-camera autofocus path,
-reports negotiated charging capability, and enforces the native 80% charge
-limit across both the main charger and independent SC8551 PPS charge pump.
+Kernel #51 retains the Kernel #17 hardware, charging, autofocus, and ABI
+baseline. It restores the TB132FU DisplayPort transmitter, preserves the
+physically qualified HDMI-audio implementation, rejects the unsafe 4K30 path,
+and offers 4K60 only when the trained sink/link reports both DSC and FEC.
 
 This device tree intentionally sets `TARGET_NO_KERNEL := true`: it builds the
 framework-owned Android images but does not assemble `boot.img`. A flashable
@@ -52,12 +52,13 @@ Force 120 Hz modes. Fluid keeps the framework default render ceiling at 120 Hz
 so SurfaceFlinger's touch/content policy can select both physical modes; the
 user's peak and minimum settings provide the Standard and Force 120 clamps.
 
-Pure Pixel also integrates the open LineageOS Updater and Evolution-X FaceUnlock
-projects listed by the platform-patches manifest. The updater is adapted to
-generate and install signed full recovery packages on the active slot A. It
-does not use Android's A/B payload engine, prepare slot B, or replace retained
-Lenovo partitions. Face unlock is exposed as a convenience biometric and is
-not a substitute for a PIN or a hardware-backed strong biometric.
+Pure Pixel also integrates LineageOS Aperture and Updater plus Evolution-X
+FaceUnlock. R5 pins Aperture source commit `de12d69e0ffc` and labels it Camera
+in the launcher. The updater is adapted to generate and install signed full
+recovery packages on active slot A; it does not use Android's A/B payload
+engine, prepare slot B, or replace retained Lenovo partitions. Face Unlock is
+exposed as a convenience biometric and is not a substitute for a PIN or a
+hardware-backed strong biometric.
 
 Double-tap-to-wake is bridged from the persistent TB132FU setting to the stock
 Goodix `/proc/gesture_control` node by init. Device policy gives that exact proc
@@ -72,18 +73,20 @@ device inputs and are outside this repository's build and flashing scope.
 ## Source and release boundary
 
 This repository contains the open TB132FU device integration only. Pure Pixel
-17 R4 additionally uses Android platform compatibility topics, the separately
+17 R5 additionally uses Android platform compatibility topics, the separately
 published TB132FU kernel, locally supplied proprietary Lenovo payloads, and a
 private optional Google/Pixel package composition. The device tree alone is
 therefore useful for native ROM bring-up and collaboration, but is not a
 complete byte-for-byte Pure Pixel build manifest.
 
-R4 retains the landscape startup and power-button AOD reveal behavior from R3.
-It also adds the qualified Bluetooth-audio compatibility bridge, native charge
-limit integration, and reversible controls for obsolete vendor services. The
-matching Google boot animation is not distributed here.
+R5 retains the R4 Bluetooth, charging, vendor-hardening, landscape startup, and
+AOD baseline. It adds the open HDMI policy/frame-accounting implementation,
+Aperture integration, and the 750 ms AOD-entry plus 1,000 ms post-wake falsing
+grace periods. The matching Google boot animation and hash-pinned proprietary
+audio delegate are not distributed here.
 
-The R4 release branch is `purepixel17-tb132fu-r4`; R3, R2, and R1 tags remain
-available for previous releases. Source files in this repository are provided
-under Apache-2.0 unless an individual file states otherwise. No Lenovo or
-Google proprietary payload is licensed or distributed by this repository.
+The R5 release branch is `purepixel17-tb132fu-r5`; R4, R3, R2, and R1 release
+refs remain available for previous releases. Source files in this repository
+are provided under Apache-2.0 unless an individual file states otherwise. No
+Lenovo or Google proprietary payload is licensed or distributed by this
+repository.

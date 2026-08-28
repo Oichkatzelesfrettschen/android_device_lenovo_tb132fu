@@ -11,3 +11,47 @@ android_app_import {
         enabled: false,
     },
 }
+
+cc_binary {
+    name: "tb132fu_audio_hal_pcm16",
+    srcs: ["audio/tb132fu-audio-hal-pcm16.c"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "tb132fu_audio_primary_pcm16",
+    owner: "lenovo",
+    srcs: ["prebuilt-local/audio.primary.mt6893.pcm16.so"],
+    stem: "audio.primary.mt6893.pcm16",
+    compile_multilib: "32",
+    // Keep the delegate alone in a dedicated immutable directory. Init binds
+    // that directory read-only onto an otherwise unused vendor directory so
+    // the vendor linker namespace can load this exact verified file without
+    // changing the retained Lenovo vendor partition.
+    relative_install_path: "tb132fu-audio-delegate",
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}
+
+cc_library_shared {
+    name: "tb132fu_audio_primary_framefix",
+    stem: "audio.primary.mt6893.framefix",
+    srcs: ["audio/tb132fu-audio-primary-framefix.c"],
+    compile_multilib: "32",
+    relative_install_path: "hw",
+    header_libs: ["libhardware_headers"],
+    shared_libs: [
+        "libdl",
+        "liblog",
+    ],
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+}

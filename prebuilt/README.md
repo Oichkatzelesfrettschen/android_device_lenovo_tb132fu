@@ -29,3 +29,18 @@ SHA-256  04708555177533bb864b32a8657ae7fd2c1eaa448ed5d29cd9077dd805fa1c5a
 
 These media files, `PenService.apk`, ROM signing material, Google packages,
 and generated partition images are not part of the public device source.
+
+## HDMI audio delegate
+
+Pure Pixel 17 R5 also uses one locally supplied, hash-pinned compatibility
+derivative of Lenovo's retained 32-bit MT6893 primary audio HAL:
+
+```text
+prebuilt-local/audio.primary.mt6893.pcm16.so
+SHA-256  783d48f8894e994b8244126f2e3462f3c47f8d03b16f3bbabf25a8c56fbc45ec
+```
+
+That proprietary binary is intentionally ignored by Git and is not distributed
+in this repository. The open `tb132fu-audio-hal-pcm16.c` verifier pins the
+Lenovo build identity and the exact PCM16 instruction contract; the open
+frame-accounting wrapper refuses every unknown delegate or HDMI format.
