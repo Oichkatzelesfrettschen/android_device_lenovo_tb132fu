@@ -19,16 +19,19 @@ geometry.
 ## Required kernel
 
 Pure Pixel 17 R5 and this Android 17 device product use the separately
-maintained TB132FU Kernel #51:
+maintained TB132FU Kernel #52:
 
-- release source: [`tb132fu-purepixel17-r5-k51`](https://github.com/error311/tb132fu-kernel/tree/tb132fu-purepixel17-r5-k51)
-- release-source commit: `816fac02dd50c`
-- kernel release: `4.19.325-cip135-st51+`
+- release source: [`tb132fu-purepixel17-r5-k52`](https://github.com/error311/tb132fu-kernel/tree/tb132fu-purepixel17-r5-k52)
+- release-source commit: `e3dd1b8cf3eb`
+- kernel release: `4.19.325-cip135-st19+ #52`
 
-Kernel #51 retains the Kernel #17 hardware, charging, autofocus, and ABI
-baseline. It restores the TB132FU DisplayPort transmitter, preserves the
-physically qualified HDMI-audio implementation, rejects the unsafe 4K30 path,
-and offers 4K60 only when the trained sink/link reports both DSC and FEC.
+Kernel #52 retains the Kernel #17 hardware, charging, autofocus, and ABI
+baseline plus the physically qualified K51 display/audio implementation. It
+restores the TB132FU DisplayPort transmitter, produces correct-pitch 48 kHz
+HDMI stereo with independent left/right channels, rejects the unsafe 4K30
+path, and offers 4K60 only when the trained sink/link reports both DSC and FEC.
+Its `-st19` suffix is the imported CIP staging level; `#52` is the independent
+TB132FU build counter.
 
 This device tree intentionally sets `TARGET_NO_KERNEL := true`: it builds the
 framework-owned Android images but does not assemble `boot.img`. A flashable
@@ -84,6 +87,12 @@ AOD baseline. It adds the open HDMI policy/frame-accounting implementation,
 Aperture integration, and the 750 ms AOD-entry plus 1,000 ms post-wake falsing
 grace periods. The matching Google boot animation and hash-pinned proprietary
 audio delegate are not distributed here.
+
+The R5 release package keeps the R3 installer geometry hotfix and uses one
+standard installer for both `p11_pro_2gen` and `p11_pro_2gen_ROW_WIFI` when the
+tablet is active on slot A. The separately guarded ROW_WIFI migration remains
+only for an unlocked stock `p11_pro_2gen_ROW_WIFI` tablet that starts on slot
+B; it preserves B and writes the complete matched image set only to A.
 
 The R5 release branch is `purepixel17-tb132fu-r5`; R4, R3, R2, and R1 release
 refs remain available for previous releases. Source files in this repository
