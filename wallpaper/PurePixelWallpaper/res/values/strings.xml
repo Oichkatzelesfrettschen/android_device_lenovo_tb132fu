@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2026; SPDX-License-Identifier: Apache-2.0 -->
+<resources>
+    <string name="app_name">Pure Pixel Wallpaper</string>
+    <string name="wallpaper_name">Pure Pixel</string>
+    <string name="wallpaper_description">Pure Pixel artwork that follows the system light or dark theme.</string>
+</resources>

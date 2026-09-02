@@ -18,11 +18,12 @@ geometry.
 
 ## Required kernel
 
-Pure Pixel 17 R5 and this Android 17 device product use the separately
-maintained TB132FU Kernel #52:
+Pure Pixel 17 R6 and this Android 17 device product use the separately
+maintained TB132FU Kernel #52. R6 retains the physically qualified R5 kernel
+implementation unchanged:
 
-- release source: [`tb132fu-purepixel17-r5-k52`](https://github.com/error311/tb132fu-kernel/tree/tb132fu-purepixel17-r5-k52)
-- release-source commit: `e3dd1b8cf3eb`
+- release source: [`tb132fu-purepixel17-r6-k52`](https://github.com/error311/tb132fu-kernel/tree/tb132fu-purepixel17-r6-k52)
+- qualified kernel-source commit: `6eadba53b576`
 - kernel release: `4.19.325-cip135-st19+ #52`
 
 Kernel #52 retains the Kernel #17 hardware, charging, autofocus, and ABI
@@ -56,7 +57,7 @@ so SurfaceFlinger's touch/content policy can select both physical modes; the
 user's peak and minimum settings provide the Standard and Force 120 clamps.
 
 Pure Pixel also integrates LineageOS Aperture and Updater plus Evolution-X
-FaceUnlock. R5 pins Aperture source commit `de12d69e0ffc` and labels it Camera
+FaceUnlock. R6 retains Aperture source commit `de12d69e0ffc` and labels it Camera
 in the launcher. The updater is adapted to generate and install signed full
 recovery packages on active slot A; it does not use Android's A/B payload
 engine, prepare slot B, or replace retained Lenovo partitions. Face Unlock is
@@ -76,26 +77,34 @@ device inputs and are outside this repository's build and flashing scope.
 ## Source and release boundary
 
 This repository contains the open TB132FU device integration only. Pure Pixel
-17 R5 additionally uses Android platform compatibility topics, the separately
+17 R6 additionally uses Android platform compatibility topics, the separately
 published TB132FU kernel, locally supplied proprietary Lenovo payloads, and a
 private optional Google/Pixel package composition. The device tree alone is
 therefore useful for native ROM bring-up and collaboration, but is not a
 complete byte-for-byte Pure Pixel build manifest.
 
-R5 retains the R4 Bluetooth, charging, vendor-hardening, landscape startup, and
-AOD baseline. It adds the open HDMI policy/frame-accounting implementation,
-Aperture integration, and the 750 ms AOD-entry plus 1,000 ms post-wake falsing
-grace periods. The matching Google boot animation and hash-pinned proprietary
-audio delegate are not distributed here.
+R6 retains the complete R5 Bluetooth, charging, HDMI stereo, external-display,
+camera, vendor-hardening, landscape startup, and AOD baseline. Its open device
+additions include the adaptive Pure Pixel light/dark wallpaper, standard live
+wallpaper feature declaration, fresh-user pen-IME opt-in policy, Android's
+Multiple users UI, Pixel model-service association declarations, and an
+explicit consumer ADB-watchdog override. The matching Google packages, boot
+animation, and hash-pinned proprietary audio delegate are not distributed
+here.
 
-The R5 release package keeps the R3 installer geometry hotfix and uses one
+The R6 release package keeps the R3 installer geometry hotfix and uses one
 standard installer for both `p11_pro_2gen` and `p11_pro_2gen_ROW_WIFI` when the
 tablet is active on slot A. The separately guarded ROW_WIFI migration remains
 only for an unlocked stock `p11_pro_2gen_ROW_WIFI` tablet that starts on slot
-B; it preserves B and writes the complete matched image set only to A.
+B; it preserves B and writes the complete matched image set only to A. R6 also
+accepts the known official `TB132FU`, `TB132FU_PRC`, and `TB132FU_ROW`
+fastbootd identities, retries a missed USB transport transition exactly once,
+and can safely resume from either supported fastboot transport. Product,
+unlock, slot, logical-partition, image-hash, and geometry checks remain
+fail-closed before writes.
 
-The R5 release branch is `purepixel17-tb132fu-r5`; R4, R3, R2, and R1 release
-refs remain available for previous releases. Source files in this repository
-are provided under Apache-2.0 unless an individual file states otherwise. No
-Lenovo or Google proprietary payload is licensed or distributed by this
-repository.
+The R6 release branch is `purepixel17-tb132fu-r6`; R5, R4, R3, R2, and R1
+release refs remain available for previous releases. Source files in this
+repository are provided under Apache-2.0 unless an individual file states
+otherwise. No Lenovo or Google proprietary payload is licensed or distributed
+by this repository.

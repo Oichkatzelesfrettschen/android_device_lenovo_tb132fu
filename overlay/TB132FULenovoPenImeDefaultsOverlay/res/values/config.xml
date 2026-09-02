@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Lenovo's optional handwriting IME declares itself a default keyboard.
+         That auto-enables it beside Gboard for every fresh user, exposing an
+         IME-switch globe during Setup Wizard. Selecting it in the Wi-Fi
+         password dialog leaves no usable keyboard. Preserve PenService and
+         explicit opt-in while keeping Gboard as the sole fresh-user IME. -->
+    <bool name="im_is_default">false</bool>
+</resources>

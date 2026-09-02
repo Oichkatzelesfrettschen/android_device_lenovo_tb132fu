@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <!--
+      Android 17 applies every sysconfig association restriction declared by either package.
+      Pixel Launcher's stock rule restricts ASI OSS, so these reciprocal entries are required
+      for the two clients physically observed binding to AstreaGrpcService. ASI OSS still applies
+      its certificate-pinned manifest policy as a second gate; these rules do not bypass it.
+    -->
+    <allow-association target="com.google.android.as.oss" allowed="com.google.android.as" />
+    <allow-association target="com.google.android.as.oss" allowed="com.google.android.inputmethod.latin" />
+</config>

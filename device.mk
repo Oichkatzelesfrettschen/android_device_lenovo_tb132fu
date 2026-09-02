@@ -62,7 +62,10 @@ PRODUCT_BUILD_VENDOR_DLKM_IMAGE := false
 PRODUCT_BUILD_VENDOR_IMAGE := false
 
 PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := relaxed
-PRODUCT_RESTRICT_VENDOR_FILES := all
+# Retain full owner/path enforcement for vendor-tree modules while allowing an
+# optional product layer to name a narrowly scoped exception path. Using the
+# vendor-product form is otherwise equivalent to PRODUCT_RESTRICT_VENDOR_FILES.
+VENDOR_PRODUCT_RESTRICT_VENDOR_FILES := all
 
 # Preserve CPU time-in-state accounting on the pre-BTF 4.19 kernel. The
 # loader selects this object only on kernels older than 5.10.
@@ -72,18 +75,21 @@ PRODUCT_PACKAGES += \
     charger_res_images \
     FaceUnlock \
     LenovoPenService \
+    PurePixelWallpaper \
     tb132fu_audio_hal_pcm16 \
     tb132fu_audio_primary_framefix \
     tb132fu_audio_primary_pcm16 \
     Updater \
     timeInStateLegacy.bpf \
     TB132FUFrameworkDisplayPowerOverlay \
+    TB132FULenovoPenImeDefaultsOverlay \
     TB132FUSettingsOverlay \
     TB132FUSettingsProviderDefaultsOverlay \
     TB132FUSystemUIAodOverlay
 
 PRODUCT_SYSTEM_PROPERTIES += \
     ro.purepixel.audio_policy.product_override=true \
+    persist.adb.watchdog=0 \
     persist.sys.tb132fu.dt2w=1 \
     persist.sys.tb132fu.charge_limit=0 \
     ro.purepixel.harden.aee=1 \
@@ -102,6 +108,17 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.product.charger.boot_min_cap=3 \
     ro.surface_flinger.set_touch_timer_ms=1000 \
     ro.vendor.mtk_aod_support=1
+
+# AOSP Test Harness Mode makes adbd arm a ten-minute no-client watchdog whose
+# expiry directly reboots to the bootloader. Full recovery OTAs correctly
+# preserve userdata, including a stale persist.sys.test_harness value left by
+# development Setup Wizard qualification. Keep the consumer tablet fail-safe:
+# this explicit property overrides that fallback without weakening ADB
+# authentication or making either persistent property writable by shell.
+
+# Pure Pixel's default is a static, event-driven wallpaper service that follows
+# light/dark mode. Existing users retain their selected wallpaper; this default
+# is applied only when Android initializes wallpaper state for a new user.
 
 # Keep the standard AOSP charger as a low-battery fallback. The Lenovo
 # bootloader normally owns the visible powered-off charging screen, but if it
@@ -140,12 +157,14 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.tb132fu.rc:$(TARGET_COPY_OUT_SYSTEM)/etc/init/init.tb132fu.rc \
     $(LOCAL_PATH)/permissions/privapp-permissions-lenovo-penservice.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-lenovo-penservice.xml \
     $(LOCAL_PATH)/sysconfig/tb132fu-aperture-app-lock-exempt.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/tb132fu-aperture-app-lock-exempt.xml \
+    $(LOCAL_PATH)/sysconfig/tb132fu-pixel-ai-associations.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/tb132fu-pixel-ai-associations.xml \
     $(LOCAL_PATH)/etc/appcompat/compat_framework_overrides.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/appcompat/compat_framework_overrides.xml \
     $(LOCAL_PATH)/etc/pen/pen_config.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/pen/pen_config.xml \
     $(LOCAL_PATH)/prebuilt/pen_mono.wav:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/pen_mono.wav \
     $(LOCAL_PATH)/prebuilt/pen_sound.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/pen_sound.ogg \
     $(LOCAL_PATH)/tb132fu-no-telephony.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/tb132fu-no-telephony.xml \
     frameworks/native/data/etc/android.hardware.biometrics.face.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/android.hardware.biometrics.face.xml \
+    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.live_wallpaper.xml \
     frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.freeform_window_management.xml
 
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop

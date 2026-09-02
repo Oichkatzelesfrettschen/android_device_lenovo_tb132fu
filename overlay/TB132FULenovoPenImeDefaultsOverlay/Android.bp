@@ -1,0 +1,5 @@
+runtime_resource_overlay {
+    name: "TB132FULenovoPenImeDefaultsOverlay",
+    product_specific: true,
+    certificate: "platform",
+}

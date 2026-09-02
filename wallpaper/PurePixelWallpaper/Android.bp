@@ -1,0 +1,15 @@
+// Copyright (C) 2026
+// SPDX-License-Identifier: Apache-2.0
+
+android_app {
+    name: "PurePixelWallpaper",
+    srcs: ["src/**/*.java"],
+    resource_dirs: ["res"],
+    manifest: "AndroidManifest.xml",
+    sdk_version: "current",
+    min_sdk_version: "31",
+    product_specific: true,
+    optimize: {
+        enabled: true,
+    },
+}

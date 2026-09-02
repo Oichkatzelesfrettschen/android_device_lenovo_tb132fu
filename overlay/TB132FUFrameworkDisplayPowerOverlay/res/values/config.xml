@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Use a circular adaptive-icon mask for a consistent tablet UI. -->
+    <!-- Pixel uses a circular adaptive-icon mask. AOSP's framework default is
+         a rounded square, which also affects the Settings icon surfaces. -->
     <string name="config_icon_mask" translatable="false">M50 0A50 50,0,1,1,50 100A50 50,0,1,1,50 0</string>
+
+    <!-- Use the event-driven Pure Pixel wallpaper for clean installs and new
+         users. It follows UI night mode without a timer or animation. -->
+    <string name="default_wallpaper_component" translatable="false">org.purepixel.wallpaper/.PurePixelWallpaperService</string>
 
     <!-- The RM692H0-family OLED panel and vendor display stack accept
          DOZE_SUSPEND, but the panel retains its last scanned-out buffer there.
@@ -12,6 +17,10 @@
     <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
     <bool name="config_dozeAlwaysOnEnabled">false</bool>
     <bool name="config_dozeSupportsAodWallpaper">false</bool>
+    <!-- SystemUI already shifts and scales AOD content on this device. Keep
+         the optional whole-framebuffer shifter off to avoid double shifting
+         and clipping the tablet UI. -->
+    <bool name="config_enableBurnInProtection">false</bool>
     <bool name="config_displayBlanksAfterDoze">false</bool>
     <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
     <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
