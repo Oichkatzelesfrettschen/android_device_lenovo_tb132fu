@@ -78,6 +78,11 @@
     <integer name="config_defaultRefreshRate">120</integer>
     <integer name="config_defaultPeakRefreshRate">120</integer>
 
+    <!-- Lenovo's stock product overlay enables the display-wide hardware color
+         transform. AOSP uses this capability to expose Night Light and Extra
+         Dim through ColorDisplayService. -->
+    <bool name="config_setColorTransformAccelerated">true</bool>
+
     <!-- Android 17 desktop-first mode switches the internal display to desktop
          windowing only while the pogo keyboard and touchpad are both active. -->
     <bool name="config_isDesktopModeSupported">true</bool>
