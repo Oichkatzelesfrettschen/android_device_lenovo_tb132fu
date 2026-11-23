@@ -68,13 +68,13 @@ TARGET_USERIMAGES_USE_EXT4 := true
 # 24 KiB larger, respectively, which would make fastbootd mutate super
 # metadata during a routine framework update. The image builders allocate the
 # unused capacity inside these fixed ceilings as filesystem free space.
-BOARD_PRODUCTIMAGE_PARTITION_SIZE := 582131712
+BOARD_PRODUCTIMAGE_PARTITION_SIZE := 3489660928
 # Pin system to the allocation proven from the tablet's current super metadata.
 # This makes an oversized image fail at build time instead of relying on
 # fastbootd to resize a logical partition implicitly.  The temporary static
 # apexd probe still leaves roughly 255 MiB free in the fixed-size filesystem.
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1317494784
-BOARD_SYSTEM_EXTIMAGE_PARTITION_SIZE := 360206336
+BOARD_SYSTEM_EXTIMAGE_PARTITION_SIZE := 536870912
 
 # The retained Android 12 vendor supplies its own version-31 CIL policy and HAL
 # manifest. Android 17 supplies the versioned platform mapping; no vendor policy
