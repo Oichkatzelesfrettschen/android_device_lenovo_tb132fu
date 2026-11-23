@@ -86,6 +86,16 @@ PRODUCT_FULL_TREBLE := true
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += \
     $(DEVICE_PATH)/sepolicy/system_ext/private
 
+# The owner-build wrapper product (device/lenovo/tb132fu-avf) contributes system_ext policy only
+# where it is staged. The NPU scheduling HAL policy joins the build only with
+# TB132FU_NPU_SERVICE=true, the same switch that adds the HAL module to the product.
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += \
+    $(wildcard device/lenovo/tb132fu-avf/sepolicy/system_ext/private)
+ifeq ($(TB132FU_NPU_SERVICE),true)
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += \
+    $(wildcard device/lenovo/tb132fu-avf/npu/sepolicy/system_ext/private)
+endif
+
 # Acknowledge the exact optional HAL instances provided by Lenovo's retained
 # Android 12 vendor partition. Platform FCM5 requirements remain enabled and
 # are validated separately against the real 4.19 kernel configuration.

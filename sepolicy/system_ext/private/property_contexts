@@ -1,0 +1,12 @@
+# Hardening switches read by the Pure Pixel framework and init; the type is readable by
+# core domains only.
+persist.sys.purepixel.harden.aee                   u:object_r:purepixel_vendor_hardening_prop:s0 exact bool
+persist.sys.purepixel.harden.factory               u:object_r:purepixel_vendor_hardening_prop:s0 exact bool
+persist.sys.purepixel.harden.getgameserver         u:object_r:purepixel_vendor_hardening_prop:s0 exact bool
+persist.sys.purepixel.harden.performance           u:object_r:purepixel_vendor_hardening_prop:s0 exact bool
+persist.sys.purepixel.harden.vndservicemanager     u:object_r:purepixel_vendor_hardening_prop:s0 exact bool
+ro.purepixel.harden.aee                            u:object_r:purepixel_vendor_hardening_prop:s0 exact bool
+ro.purepixel.harden.factory                        u:object_r:purepixel_vendor_hardening_prop:s0 exact bool
+ro.purepixel.harden.getgameserver                  u:object_r:purepixel_vendor_hardening_prop:s0 exact bool
+ro.purepixel.harden.performance                    u:object_r:purepixel_vendor_hardening_prop:s0 exact bool
+ro.purepixel.harden.vndservicemanager              u:object_r:purepixel_vendor_hardening_prop:s0 exact bool
