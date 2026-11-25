@@ -106,6 +106,7 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.enable_boot_charger_mode=false \
     ro.minui.pixel_format=BGRA_8888 \
     ro.product.charger.boot_min_cap=3 \
+    ro.surface_flinger.has_wide_color_display=true \
     ro.surface_flinger.set_touch_timer_ms=1000 \
     ro.vendor.mtk_aod_support=1
 
