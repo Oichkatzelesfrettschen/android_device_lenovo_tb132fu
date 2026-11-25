@@ -63,11 +63,9 @@ on property:persist.sys.tb132fu.dt2w=0
 
 # Persist the Battery Health setting while the charger driver owns enforcement
 # and its 3% resume hysteresis. Init replays the property after every reboot.
-on property:persist.sys.tb132fu.charge_limit=80
-    write /sys/devices/platform/charger/charge_limit 80
-
-on property:persist.sys.tb132fu.charge_limit=0
-    write /sys/devices/platform/charger/charge_limit 0
+# The driver accepts 0 (off) or 50-95 and rejects any other value with EINVAL.
+on property:persist.sys.tb132fu.charge_limit=*
+    write /sys/devices/platform/charger/charge_limit ${persist.sys.tb132fu.charge_limit}
 
 # The retained Goodix driver keeps active-pen scanning disabled until userspace
 # opts in through this device node. The old TrebleDroid compatibility script
