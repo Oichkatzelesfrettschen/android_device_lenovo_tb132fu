@@ -83,6 +83,14 @@
          Dim through ColorDisplayService. -->
     <bool name="config_setColorTransformAccelerated">true</bool>
 
+    <!-- ColorDisplayService accepts only the modes listed here. Natural (0) is
+         SurfaceFlinger's managed sRGB mode and, as the first entry, the default;
+         saturated (2) leaves the panel on its own gamut. -->
+    <integer-array name="config_availableColorModes">
+        <item>0</item>
+        <item>2</item>
+    </integer-array>
+
     <!-- Android 17 desktop-first mode switches the internal display to desktop
          windowing only while the pogo keyboard and touchpad are both active. -->
     <bool name="config_isDesktopModeSupported">true</bool>
