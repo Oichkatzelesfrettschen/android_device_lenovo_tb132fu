@@ -4,6 +4,13 @@
          a rounded square, which also affects the Settings icon surfaces. -->
     <string name="config_icon_mask" translatable="false">M50 0A50 50,0,1,1,50 100A50 50,0,1,1,50 0</string>
 
+    <!-- A long press of power opens the power menu (1). The framework default
+         (5) starts the assistant, which leaves a tablet without a network
+         with no button route to power off or restart. The stored setting
+         Settings.Global.POWER_BUTTON_LONG_PRESS overrides this value once
+         the user changes it under Gestures. -->
+    <integer name="config_longPressOnPowerBehavior">1</integer>
+
     <!-- Use the event-driven Pure Pixel wallpaper for clean installs and new
          users. It follows UI night mode without a timer or animation. -->
     <string name="default_wallpaper_component" translatable="false">org.purepixel.wallpaper/.PurePixelWallpaperService</string>
